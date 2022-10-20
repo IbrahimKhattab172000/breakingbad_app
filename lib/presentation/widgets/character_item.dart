@@ -23,9 +23,38 @@ class CharacterItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       child: GridTile(
+        footer: Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(
+            horizontal: 15,
+            vertical: 10,
+          ),
+          color: Colors.black54,
+          alignment: Alignment.bottomCenter,
+          child: Text(
+            character.name,
+            style: const TextStyle(
+              height: 1.6,
+              fontSize: 16,
+              color: MyColors.myWhite,
+              fontWeight: FontWeight.bold,
+            ),
+            overflow: TextOverflow.ellipsis,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+          ),
+        ),
         child: Container(
           color: MyColors.myGrey,
-          child: Text(character.name),
+          child: character.image.isNotEmpty
+              ? FadeInImage.assetNetwork(
+                  width: double.infinity,
+                  height: double.infinity,
+                  fit: BoxFit.cover,
+                  placeholder: "assets/images/loading.gif",
+                  image: character.image,
+                )
+              : Image.asset("assets/images/placeholder.jpg"),
         ),
       ),
     );

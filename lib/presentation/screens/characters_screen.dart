@@ -71,7 +71,6 @@ class _CharactersScreenState extends State<CharactersScreen> {
       padding: EdgeInsets.zero,
       itemCount: allCharacters.length,
       itemBuilder: (ctx, item) {
-        //Todo: not done yet!
         return CharacterItem(
           character: allCharacters[item],
         );
