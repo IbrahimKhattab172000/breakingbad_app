@@ -35,6 +35,8 @@ class AppRouter {
         final character = settings.arguments as Character;
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
+            //Todo: //! this point is important, why don't we use |charactersCubit| and we created new one
+
             create: (BuildContext context) =>
                 CharactersCubit(charactersRepository: charactersRepository),
             child: CharacterDetailsScreen(
