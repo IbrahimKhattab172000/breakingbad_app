@@ -31,25 +31,28 @@ class CharacterItem extends StatelessWidget {
         },
         child: GridTile(
           //*The footer
-          footer: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.symmetric(
-              horizontal: 15,
-              vertical: 10,
-            ),
-            color: Colors.black54,
-            alignment: Alignment.bottomCenter,
-            child: Text(
-              character.name,
-              style: const TextStyle(
-                height: 1.6,
-                fontSize: 16,
-                color: MyColors.myWhite,
-                fontWeight: FontWeight.bold,
+          footer: Hero(
+            tag: character.charId,
+            child: Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(
+                horizontal: 15,
+                vertical: 10,
               ),
-              overflow: TextOverflow.ellipsis,
-              maxLines: 2,
-              textAlign: TextAlign.center,
+              color: Colors.black54,
+              alignment: Alignment.bottomCenter,
+              child: Text(
+                character.name,
+                style: const TextStyle(
+                  height: 1.6,
+                  fontSize: 16,
+                  color: MyColors.myWhite,
+                  fontWeight: FontWeight.bold,
+                ),
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+              ),
             ),
           ),
           //*The GridTile main content
