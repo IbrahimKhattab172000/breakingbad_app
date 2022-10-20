@@ -1,17 +1,24 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:math';
+
+import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:breakingbad_app/business_logic/cubit/characters_cubit.dart';
 import 'package:breakingbad_app/constants/my_colors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:breakingbad_app/data/models/character.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CharacterDetailsScreen extends StatelessWidget {
   final Character character;
+
   const CharacterDetailsScreen({
     Key? key,
     required this.character,
   }) : super(key: key);
 
 //*This func has the image and name of the character
+
   Widget _buildSliverAppBar() {
     return SliverAppBar(
       expandedHeight: 600,
@@ -87,8 +94,58 @@ class CharacterDetailsScreen extends StatelessWidget {
     );
   }
 
+  Widget checkIfQuotesAreLoaded(state) {
+    if (state is QuotesLoaded) {
+      return displayRandomCodeOrEmptySpace(state);
+    } else {
+      return showProgressIndicator();
+    }
+  }
+
+  Widget displayRandomCodeOrEmptySpace(state) {
+    var quotes = (state).quotes;
+    if (quotes.isNotEmpty) {
+      int randomQuoteIndex = Random().nextInt(quotes.length - 1);
+      return Center(
+        child: DefaultTextStyle(
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            fontSize: 20,
+            color: MyColors.myWhite,
+            shadows: [
+              Shadow(
+                blurRadius: 7,
+                color: MyColors.myYellow,
+                offset: Offset(0, 0),
+              ),
+            ],
+          ),
+          child: AnimatedTextKit(
+            repeatForever: true,
+            animatedTexts: [
+              FlickerAnimatedText(quotes[randomQuoteIndex].quote),
+            ],
+          ),
+        ),
+      );
+    } else {
+      return Container();
+    }
+  }
+
+  Widget showProgressIndicator() {
+    return const Center(
+      child: CircularProgressIndicator(
+        color: MyColors.myYellow,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    BlocProvider.of<CharactersCubit>(context)
+        .getQuotes(charName: character.name);
+
     return Scaffold(
       backgroundColor: MyColors.myGrey,
       //*Using CustomScrollView which contains slivers:[] that contains => SliverAppBar & SliverList
@@ -138,6 +195,11 @@ class CharacterDetailsScreen extends StatelessWidget {
                       buildDivider(endIndent: 235),
                       const SizedBox(
                         height: 20,
+                      ),
+                      BlocBuilder<CharactersCubit, CharactersState>(
+                        builder: (context, state) {
+                          return checkIfQuotesAreLoaded(state);
+                        },
                       ),
                     ],
                   ),
