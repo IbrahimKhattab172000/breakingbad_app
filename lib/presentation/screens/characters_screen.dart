@@ -20,9 +20,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
   @override
   void initState() {
     super.initState();
-
-    allCharacters =
-        BlocProvider.of<CharactersCubit>(context).getAllCharacters();
+    BlocProvider.of<CharactersCubit>(context).getAllCharacters();
   }
 
   Widget buildBlocWidget() {
