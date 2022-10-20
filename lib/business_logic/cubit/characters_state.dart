@@ -12,3 +12,10 @@ class CharactersLoaded extends CharactersState {
     required this.characters,
   });
 }
+
+class QuotesLoaded extends CharactersState {
+  final List<Quote> quotes;
+  QuotesLoaded({
+    required this.quotes,
+  });
+}
