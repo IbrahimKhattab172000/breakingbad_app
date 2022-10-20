@@ -2,7 +2,7 @@
 
 import 'package:breakingbad_app/business_logic/cubit/characters_cubit.dart';
 import 'package:breakingbad_app/constants/my_colors.dart';
-import 'package:breakingbad_app/data/models/characters.dart';
+import 'package:breakingbad_app/data/models/character.dart';
 import 'package:breakingbad_app/presentation/widgets/character_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

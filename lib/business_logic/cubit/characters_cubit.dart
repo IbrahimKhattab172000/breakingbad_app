@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:breakingbad_app/data/models/characters.dart';
+import 'package:breakingbad_app/data/models/character.dart';
 import 'package:breakingbad_app/data/repository/characters_repository.dart';
 
 part 'characters_state.dart';

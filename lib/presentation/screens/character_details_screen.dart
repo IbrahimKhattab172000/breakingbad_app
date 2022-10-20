@@ -2,7 +2,7 @@
 import 'package:breakingbad_app/constants/my_colors.dart';
 import 'package:flutter/material.dart';
 
-import 'package:breakingbad_app/data/models/characters.dart';
+import 'package:breakingbad_app/data/models/character.dart';
 
 class CharacterDetailsScreen extends StatelessWidget {
   final Character character;

@@ -3,7 +3,7 @@ import 'package:breakingbad_app/constants/my_colors.dart';
 import 'package:breakingbad_app/constants/strings.dart';
 import 'package:flutter/material.dart';
 
-import 'package:breakingbad_app/data/models/characters.dart';
+import 'package:breakingbad_app/data/models/character.dart';
 
 class CharacterItem extends StatelessWidget {
   final Character character;

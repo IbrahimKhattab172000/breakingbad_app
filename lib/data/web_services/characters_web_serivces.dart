@@ -1,5 +1,4 @@
 import 'package:breakingbad_app/constants/strings.dart';
-import 'package:breakingbad_app/data/models/characters.dart';
 import 'package:dio/dio.dart';
 
 class CharactersWebServices {
