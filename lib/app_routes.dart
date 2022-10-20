@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: prefer_const_constructors
+import 'package:breakingbad_app/data/models/characters.dart';
 import 'package:breakingbad_app/data/web_services/characters_web_serivces.dart';
 import 'package:flutter/material.dart';
 
@@ -28,7 +29,11 @@ class AppRouter {
           ),
         );
       case characterDetailsScreen:
-        return MaterialPageRoute(builder: (_) => CharacterDetailsScreen());
+        final character = settings.arguments as Character;
+        return MaterialPageRoute(
+            builder: (_) => CharacterDetailsScreen(
+                  character: character,
+                ));
       default:
     }
   }

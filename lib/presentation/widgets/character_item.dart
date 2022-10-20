@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:breakingbad_app/constants/my_colors.dart';
+import 'package:breakingbad_app/constants/strings.dart';
 import 'package:flutter/material.dart';
 
 import 'package:breakingbad_app/data/models/characters.dart';
@@ -22,39 +23,48 @@ class CharacterItem extends StatelessWidget {
         color: MyColors.myWhite,
         borderRadius: BorderRadius.circular(8),
       ),
-      child: GridTile(
-        footer: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(
-            horizontal: 15,
-            vertical: 10,
-          ),
-          color: Colors.black54,
-          alignment: Alignment.bottomCenter,
-          child: Text(
-            character.name,
-            style: const TextStyle(
-              height: 1.6,
-              fontSize: 16,
-              color: MyColors.myWhite,
-              fontWeight: FontWeight.bold,
+      child: InkWell(
+        //*Passing the specific character[item] as an argument
+        onTap: () {
+          Navigator.of(context)
+              .pushNamed(characterDetailsScreen, arguments: character);
+        },
+        child: GridTile(
+          //*The footer
+          footer: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(
+              horizontal: 15,
+              vertical: 10,
             ),
-            overflow: TextOverflow.ellipsis,
-            maxLines: 2,
-            textAlign: TextAlign.center,
+            color: Colors.black54,
+            alignment: Alignment.bottomCenter,
+            child: Text(
+              character.name,
+              style: const TextStyle(
+                height: 1.6,
+                fontSize: 16,
+                color: MyColors.myWhite,
+                fontWeight: FontWeight.bold,
+              ),
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              textAlign: TextAlign.center,
+            ),
           ),
-        ),
-        child: Container(
-          color: MyColors.myGrey,
-          child: character.image.isNotEmpty
-              ? FadeInImage.assetNetwork(
-                  width: double.infinity,
-                  height: double.infinity,
-                  fit: BoxFit.cover,
-                  placeholder: "assets/images/loading.gif",
-                  image: character.image,
-                )
-              : Image.asset("assets/images/placeholder.jpg"),
+          //*The GridTile main content
+          child: Container(
+            color: MyColors.myGrey,
+            child: character.image.isNotEmpty
+                ? FadeInImage.assetNetwork(
+                    width: double.infinity,
+                    height: double.infinity,
+                    fit: BoxFit.cover,
+                    placeholder: "assets/images/loading.gif",
+                    image: character.image,
+                  )
+                : Image.asset("assets/images/placeholder.jpg"),
+          ),
         ),
       ),
     );
