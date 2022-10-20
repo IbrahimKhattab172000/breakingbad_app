@@ -15,8 +15,10 @@ class AppRouter {
   late CharactersRepository charactersRepository;
   late CharactersCubit charactersCubit;
   AppRouter() {
-    charactersRepository = CharactersRepository(CharactersWebServices());
-    charactersCubit = CharactersCubit(charactersRepository);
+    charactersRepository =
+        CharactersRepository(charactersWeServices: CharactersWebServices());
+    charactersCubit =
+        CharactersCubit(charactersRepository: charactersRepository);
   }
 
   Route? generateRoute(RouteSettings settings) {
@@ -29,13 +31,17 @@ class AppRouter {
           ),
         );
       case characterDetailsScreen:
-        //Todo:.. //!I don't fully understand this [final character = settings.arguments as Character;]
+        //Todo:.. //!I don't fully understand this |final character = settings.arguments as Character;|
         final character = settings.arguments as Character;
         return MaterialPageRoute(
-            builder: (_) => CharacterDetailsScreen(
-                  character: character,
-                ));
-      default:
+          builder: (_) => BlocProvider(
+            create: (BuildContext context) =>
+                CharactersCubit(charactersRepository: charactersRepository),
+            child: CharacterDetailsScreen(
+              character: character,
+            ),
+          ),
+        );
     }
   }
 }
