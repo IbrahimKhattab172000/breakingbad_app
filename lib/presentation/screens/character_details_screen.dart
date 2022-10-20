@@ -94,16 +94,16 @@ class CharacterDetailsScreen extends StatelessWidget {
     );
   }
 
-  Widget checkIfQuotesAreLoaded(state) {
+  Widget checkIfQuotesAreLoaded({required CharactersState state}) {
     if (state is QuotesLoaded) {
-      return displayRandomCodeOrEmptySpace(state);
+      return displayRandomCodeOrEmptySpace(state: state);
     } else {
       return showProgressIndicator();
     }
   }
 
-  Widget displayRandomCodeOrEmptySpace(state) {
-    var quotes = (state).quotes;
+  Widget displayRandomCodeOrEmptySpace({required CharactersState state}) {
+    var quotes = (state as QuotesLoaded).quotes;
     if (quotes.isNotEmpty) {
       int randomQuoteIndex = Random().nextInt(quotes.length - 1);
       return Center(
@@ -198,7 +198,7 @@ class CharacterDetailsScreen extends StatelessWidget {
                       ),
                       BlocBuilder<CharactersCubit, CharactersState>(
                         builder: (context, state) {
-                          return checkIfQuotesAreLoaded(state);
+                          return checkIfQuotesAreLoaded(state: state);
                         },
                       ),
                     ],
