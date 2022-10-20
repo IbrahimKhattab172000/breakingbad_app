@@ -29,6 +29,7 @@ class AppRouter {
           ),
         );
       case characterDetailsScreen:
+        //Todo:.. //!I don't fully understand this [final character = settings.arguments as Character;]
         final character = settings.arguments as Character;
         return MaterialPageRoute(
             builder: (_) => CharacterDetailsScreen(
