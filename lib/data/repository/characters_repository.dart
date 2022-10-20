@@ -5,7 +5,7 @@ import 'package:breakingbad_app/data/web_services/characters_web_serivces.dart';
 class CharactersRepository {
   final CharactersWebServices charactersWeServices;
 
-  CharactersRepository(this.charactersWeServices);
+  CharactersRepository({required this.charactersWeServices});
 
   Future<List<Character>> getAllCharacters() async {
     final characters = await charactersWeServices.getAllCharacters();
