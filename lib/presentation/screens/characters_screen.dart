@@ -6,6 +6,7 @@ import 'package:breakingbad_app/data/models/character.dart';
 import 'package:breakingbad_app/presentation/widgets/character_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_offline/flutter_offline.dart';
 
 class CharactersScreen extends StatefulWidget {
   const CharactersScreen({super.key});
@@ -43,6 +44,7 @@ class _CharactersScreenState extends State<CharactersScreen> {
   }
 
   void addSearchedForItemToSearchedList({required String searchedCharacter}) {
+    //Todo: toLowerCase() is not the best solution here
     searchedForCharacters = allCharacters
         .where((character) =>
             character.name.toLowerCase().contains(searchedCharacter))
@@ -169,6 +171,30 @@ class _CharactersScreenState extends State<CharactersScreen> {
     );
   }
 
+  Widget buildNoInternetWidget() {
+    return Center(
+      child: Container(
+        color: Colors.white,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset("assets/images/noInternet.png"),
+              Text(
+                "Can't connect..\nPlease check your internet!",
+                style: TextStyle(
+                  color: MyColors.myGrey,
+                  fontSize: 22,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -182,7 +208,24 @@ class _CharactersScreenState extends State<CharactersScreen> {
             : Container(),
         actions: buildAppBarAction(),
       ),
-      body: buildBlocWidget(),
+      body: OfflineBuilder(
+        connectivityBuilder: (
+          BuildContext context,
+          ConnectivityResult connectivity,
+          Widget child,
+        ) {
+          final bool connected = connectivity != ConnectivityResult.none;
+
+          if (connected) {
+            return buildBlocWidget();
+          } else {
+            //Todo: this is for connectivity not for the existence of the internet, so find a better alternative
+            //Todo: this is not the best way, try using bloc pattern for this functionality
+            return buildNoInternetWidget();
+          }
+        },
+        child: showLoadingIndicator(),
+      ),
     );
   }
 }
